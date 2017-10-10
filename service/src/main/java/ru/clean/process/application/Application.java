@@ -1,13 +1,20 @@
 package ru.clean.process.application;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-@SpringBootApplication
+@Configuration
+@EnableWebMvc
 @ComponentScan({"ru.clean.process.controllers"})
 public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    @Bean
+    public UrlBasedViewResolver setupViewResolver() {
+        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setViewClass(JstlView.class);
+        return resolver;
     }
 }
