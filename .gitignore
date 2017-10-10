@@ -1,7 +1,4 @@
-
 .gitattributes
 .idea/
 *.iml
-springtest.iml
-springtest/
 **/target/
