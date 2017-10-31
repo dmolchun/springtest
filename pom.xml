@@ -9,18 +9,29 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>controller</module>
+        <module>application</module>
         <module>service</module>
         <module>view</module>
     </modules>
+
+    <properties>
+        <spring.version>4.2.3.RELEASE</spring.version>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <final.name>springtest</final.name>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
             <!--modules-->
             <dependency>
                 <groupId>ru.clean.process</groupId>
-                <artifactId>controller</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.clean.process</groupId>
+                <artifactId>view</artifactId>
+                <version>${project.version}</version>
             </dependency>
             
             <!-- junit -->
@@ -35,12 +46,33 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
-                <version>4.3.11.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>4.3.11.RELEASE</version>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- Add Spring Security -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
             <!--Servlet-->
@@ -62,14 +94,17 @@
                 <version>2.9.1</version>
             </dependency>
 
-
-            <!--WarPlugin-->
+            <!-- Maven Plugins -->
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.1.0</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

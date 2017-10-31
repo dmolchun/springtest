@@ -1,4 +1,4 @@
-package ru.clean.process.application;
+package ru.clean.process.configuration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -9,14 +9,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class Initializer implements WebApplicationInitializer {
+public class AppConfigInit implements WebApplicationInitializer {
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         // регистрируем конфигурацию созданую высше
-        ctx.register(Application.class);
+        ctx.register(AppConfig.class);
         // добавляем в контекст слушателя с нашей конфигурацией
         servletContext.addListener(new ContextLoaderListener(ctx));
 
