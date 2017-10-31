@@ -1,5 +1,6 @@
 package ru.clean.process.service;
 
+import org.springframework.stereotype.Service;
 import ru.clean.process.api.dto.Book;
 import ru.clean.process.api.dto.BookBuilder;
 import ru.clean.process.api.service.LibraryBean;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by dibragimov on 31.10.2017.
  * LibraryBean base realization
  */
+@Service
 public class LibraryBeanImpl implements LibraryBean {
 
     /**

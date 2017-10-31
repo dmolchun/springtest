@@ -14,7 +14,7 @@ import ru.clean.process.service.LibraryBeanImpl;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.clean.process.controllers"})
+@ComponentScan({"ru.clean.process.controllers", "ru.clean.process.service"})
 @Import({AppSecurityConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
@@ -24,11 +24,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         resolver.setPrefix("");
         resolver.setSuffix(".html");
         return resolver;
-    }
-
-    @Bean
-    public LibraryBean libraryBean() {
-        return new LibraryBeanImpl();
     }
 
     @Override
