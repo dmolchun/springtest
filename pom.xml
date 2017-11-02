@@ -13,6 +13,7 @@
         <module>service</module>
         <module>view</module>
         <module>api</module>
+        <module>db</module>
     </modules>
 
     <properties>
