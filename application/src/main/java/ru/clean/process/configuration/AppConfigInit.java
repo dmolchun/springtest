@@ -4,6 +4,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import ru.clean.process.db.JpaConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class AppConfigInit implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         // регистрируем конфигурацию созданую высше
-        ctx.register(AppConfig.class);
+        ctx.register(AppConfig.class, JpaConfig.class);
         // добавляем в контекст слушателя с нашей конфигурацией
         servletContext.addListener(new ContextLoaderListener(ctx));
 
