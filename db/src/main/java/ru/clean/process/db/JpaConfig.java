@@ -18,7 +18,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories("ru.clean.process.db")
-@PropertySource(value = {"classpath:application.properties"})
 public class JpaConfig {
 
     @Bean
