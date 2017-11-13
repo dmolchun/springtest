@@ -1,8 +1,8 @@
 package ru.clean.process.service;
 
 import org.springframework.stereotype.Service;
-import ru.clean.process.api.dto.Book;
-import ru.clean.process.api.dto.BookBuilder;
+import ru.clean.process.api.dto.book.Book;
+import ru.clean.process.api.dto.book.BookBuilder;
 import ru.clean.process.api.service.LibraryBean;
 
 import java.util.ArrayList;
