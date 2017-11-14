@@ -1,4 +1,4 @@
-package ru.clean.process.controllers;
+package ru.clean.process.webmodule.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

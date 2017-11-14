@@ -1,29 +1,28 @@
-package ru.clean.process.service;
+package ru.clean.process.db.actors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.clean.process.api.dto.actor.Actor;
 import ru.clean.process.api.service.repo_adapters.ActorRepositoryAdapter;
-import ru.clean.process.api.service.ActorService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Actor service implementation
+ * Adapter to work with user storage
  */
 @Service
-public class ActorServiceImpl implements ActorService {
+public class ActorRepositoryAdapterImpl implements ActorRepositoryAdapter {
 
-
-    private final ActorRepositoryAdapter actorRepository;
+    private ActorRepository actorRepository;
 
     @Autowired
-    public ActorServiceImpl(ActorRepositoryAdapter actorRepository) {
+    public ActorRepositoryAdapterImpl(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
     }
 
     @Override
     public List<Actor> getAllActors() {
-        return actorRepository.getAllActors();
+        return new ArrayList<>(actorRepository.findAll());
     }
 }
