@@ -1,12 +1,10 @@
-package ru.clean.process.controllers;
+package ru.clean.process.webmodule.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.clean.process.api.dto.actor.Actor;
 import ru.clean.process.api.service.ActorService;
-import ru.clean.process.db.actors.ActorEntity;
-import ru.clean.process.db.actors.ActorRepository;
 
 import java.util.List;
 
