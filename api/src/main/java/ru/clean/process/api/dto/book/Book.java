@@ -1,4 +1,4 @@
-package ru.clean.process.api.dto;
+package ru.clean.process.api.dto.book;
 
 /**
  * Created by dibragimov on 31.10.2017.

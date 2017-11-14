@@ -1,6 +1,6 @@
 package ru.clean.process.api.service;
 
-import ru.clean.process.api.dto.Book;
+import ru.clean.process.api.dto.book.Book;
 
 import java.util.List;
 

@@ -1,14 +1,13 @@
-package ru.clean.process.db;
+package ru.clean.process.db.actors;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import ru.clean.process.api.dto.actor.Actor;
+
+import javax.persistence.*;
 
 @Entity
-public class Actor {
+@Table(name = "actor")
+public class ActorEntity implements Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "actor_id")
@@ -17,7 +16,6 @@ public class Actor {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-
 
     public Long getId() {
         return id;

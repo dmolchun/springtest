@@ -3,7 +3,7 @@ package ru.clean.process.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.clean.process.api.dto.Book;
+import ru.clean.process.api.dto.book.Book;
 import ru.clean.process.api.service.LibraryBean;
 
 import java.util.List;

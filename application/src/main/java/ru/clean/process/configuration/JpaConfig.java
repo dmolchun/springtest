@@ -1,4 +1,4 @@
-package ru.clean.process.db;
+package ru.clean.process.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import ru.clean.process.api.service.ConfigService;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -19,6 +20,12 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories("ru.clean.process.db")
 public class JpaConfig {
+
+    private ConfigService configService;
+
+    public JpaConfig(ConfigService configService) {
+        this.configService = configService;
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -37,10 +44,10 @@ public class JpaConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("2246");
+        dataSource.setDriverClassName(configService.getMainConfig().getDbConfig().getDriverClassName());
+        dataSource.setUrl(configService.getMainConfig().getDbConfig().getUrl());
+        dataSource.setUsername(configService.getMainConfig().getDbConfig().getUserName());
+        dataSource.setPassword(configService.getMainConfig().getDbConfig().getPassword());
         return dataSource;
     }
 
@@ -62,7 +69,7 @@ public class JpaConfig {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "none");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return properties;
     }

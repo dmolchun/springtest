@@ -1,4 +1,4 @@
-package ru.clean.process.api.dto;
+package ru.clean.process.api.dto.book;
 
 import java.io.Serializable;
 
