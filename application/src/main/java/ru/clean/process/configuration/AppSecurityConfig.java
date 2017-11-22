@@ -19,7 +19,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        //todo: enable csfr
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/").access("hasRole('ROLE_USER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")

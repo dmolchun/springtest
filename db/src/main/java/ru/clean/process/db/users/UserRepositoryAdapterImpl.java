@@ -28,6 +28,16 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter{
 
     @Override
     public User saveUser(User user) {
-        return null;
+        return userRepository.save(new UserEntity(user));
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

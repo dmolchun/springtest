@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.clean.process.webmodule.controllers", "ru.clean.process.service", "ru.clean.process.db"})
+@ComponentScan({ConfigConstants.PACKAGE_CONTROLLERS, ConfigConstants.PACKAGE_SERVICES, ConfigConstants.PACKAGE_DB})
 @Import({AppSecurityConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean

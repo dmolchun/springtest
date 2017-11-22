@@ -4,7 +4,10 @@ import ru.clean.process.api.dto.user.User;
 import ru.clean.process.api.dto.user.UserRoles;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -20,19 +23,19 @@ public class UserEntity implements User {
     private Long id;
 
     @Column(name = "user_name")
-    String name;
+    private String name;
 
     @Column(name = "second_name")
-    String secondName;
+    private String secondName;
 
     @Column(name = "user_login")
-    String login;
+    private String login;
 
     @Column(name = "user_password")
-    String password;
+    private String password;
 
-//    @Column(name = "user_roles")
-//    List<UserRoles> userRoles;
+    @Column(name = "user_roles")
+    String[] userRoles;
 
     @Override
     public Long getId() {
@@ -59,8 +62,34 @@ public class UserEntity implements User {
         return password;
     }
 
-//    @Override
-//    public List<UserRoles> getRoles() {
-//        return userRoles;
-//    }
+    @Override
+    public List<UserRoles> getRoles() {
+        if (userRoles == null) {
+            return new ArrayList<>();
+        }
+        return Arrays.asList(userRoles).stream().map(UserRoles::valueOf).collect(Collectors.toList());
+    }
+
+    public UserEntity() {
+    }
+
+    public UserEntity(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.secondName = user.getSecondName();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", userRoles=" + Arrays.toString(userRoles) +
+                '}';
+    }
 }

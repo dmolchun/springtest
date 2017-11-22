@@ -34,5 +34,5 @@ public interface User {
     /**
      * Get User roles
      */
-//    List<UserRoles> getRoles();
+    List<UserRoles> getRoles();
 }

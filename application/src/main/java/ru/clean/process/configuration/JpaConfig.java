@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories("ru.clean.process.db")
+@EnableJpaRepositories(ConfigConstants.PACKAGE_DB)
 public class JpaConfig {
 
     private ConfigService configService;
@@ -30,7 +30,7 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("ru.clean.process.db");
+        em.setPackagesToScan(ConfigConstants.PACKAGE_DB);
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
