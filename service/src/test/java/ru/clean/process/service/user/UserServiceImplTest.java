@@ -20,7 +20,7 @@ public class UserServiceImplTest {
     @Before
     public void initialize() {
         UserRepositoryAdapter userRepositoryAdapter = new UserRepositoryAdapterMock();
-        userService = new UserServiceImpl(userRepositoryAdapter, new UserVerifier(userRepositoryAdapter));
+        userService = new UserServiceImpl(userRepositoryAdapter, new UserVerifier(userRepositoryAdapter), null);
     }
 
     @Test

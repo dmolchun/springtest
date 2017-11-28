@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        <h1>INDEX</h1>
-    </body>
+<html ng-app="mainApp">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="views/js/main_app.js"></script>
+</head>
+<body ng-controller="mainController">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" id="movies-tab" data-toggle="tab" href="#movies" role="tab" aria-controls="movies"
+           aria-selected="true">Movies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users"
+           aria-selected="false">Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="stuff-tab" data-toggle="tab" href="#stuff" role="tab" aria-controls="stuff"
+           aria-selected="false">Stuff</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade" id="movies" role="tabpanel" aria-labelledby="movies-tab">
+        <h1>MOVIES</h1>
+    </div>
+    <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+        <div class="panel">
+            <h1> Users list </h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Second name</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.login}}</td>
+                    <td>{{user.secondName}}</td>
+                    <td>{{user.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="stuff" role="tabpanel" aria-labelledby="stuff-tab">
+        <h1>STUFF</h1>
+    </div>
+</div>
+</body>
 </html>

@@ -1,7 +1,12 @@
 package ru.clean.process.service.user;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.clean.process.api.dto.user.User;
+import ru.clean.process.api.dto.user.UserImpl;
 import ru.clean.process.api.exceptions.UserServiceException;
 import ru.clean.process.api.service.UserService;
 import ru.clean.process.api.service.repo_adapters.UserRepositoryAdapter;
@@ -19,10 +24,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepositoryAdapter userRepository;
     private final UserVerifier userVerifier;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepositoryAdapter userRepository, UserVerifier userVerifier) {
+    public UserServiceImpl(UserRepositoryAdapter userRepository, UserVerifier userVerifier, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userVerifier = userVerifier;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -38,6 +45,10 @@ public class UserServiceImpl implements UserService {
         return updateUser(user);
     }
 
+    /**
+     * Returns user info by login
+     * @throws UserServiceException if user was not found
+     */
     @Override
     public User getUserByLogin(String login) throws UserServiceException {
         User result = userRepository.getUserByLogin(login);
@@ -55,7 +66,7 @@ public class UserServiceImpl implements UserService {
     private User updateUser(User user) throws UserServiceException {
         List<VerificationResult> verificationResult = userVerifier.verifyUserOnUpdate(user);
         if (verificationResult.isEmpty()) {
-            return userRepository.saveUser(user);
+            return saveToRepo(user);
         } else {
             throw new UserServiceException(String.format("Unable to update user because: \n%s",
                     verificationResult.stream().map(VerificationResult::getErrorMessage).collect(Collectors.joining("\n"))));
@@ -70,10 +81,22 @@ public class UserServiceImpl implements UserService {
     private User createUser(User user) throws UserServiceException {
         List<VerificationResult> verificationResult = userVerifier.verifyUserOnCreate(user);
         if (verificationResult.isEmpty()) {
-            return userRepository.saveUser(user);
+            return saveToRepo(user);
         } else {
             throw new UserServiceException(String.format("Unable to create user because: \n%s",
                     verificationResult.stream().map(VerificationResult::getErrorMessage).collect(Collectors.joining("\n"))));
         }
+    }
+
+    /**
+     * Save user to repo
+     */
+    private User saveToRepo(User user) throws UserServiceException {
+        if (user == null) {
+            throw new UserServiceException("User to save in repo empty");
+        }
+        UserImpl newUser = new UserImpl(user);
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.saveUser(newUser);
     }
 }

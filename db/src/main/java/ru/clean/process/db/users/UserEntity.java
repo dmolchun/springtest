@@ -79,6 +79,8 @@ public class UserEntity implements User {
         this.secondName = user.getSecondName();
         this.login = user.getLogin();
         this.password = user.getPassword();
+        this.userRoles = user.getRoles() == null ? new String[0] :
+                user.getRoles().stream().map(UserRoles::name).toArray(String[]::new);
     }
 
     @Override

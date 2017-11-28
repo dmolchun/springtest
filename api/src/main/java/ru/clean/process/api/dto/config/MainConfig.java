@@ -5,4 +5,5 @@ package ru.clean.process.api.dto.config;
  */
 public interface MainConfig {
     DbConfig getDbConfig();
+    boolean needCreateAdminIfNotExists();
 }

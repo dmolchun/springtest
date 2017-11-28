@@ -1,20 +1,43 @@
 package ru.clean.process.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.clean.process.api.dto.user.UserRoles;
+import ru.clean.process.service.user.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan({ConfigConstants.PACKAGE_SERVICES})
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    UserDetailsServiceImpl userService;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN", "USER");
+        auth.authenticationProvider(authProvider());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Override
@@ -22,9 +45,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         //todo: enable csfr
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").access("hasRole('ROLE_USER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .and().formLogin().defaultSuccessUrl("/", false);
+                .antMatchers("/").access("hasAnyAuthority('" + UserRoles.ADMIN.name() + "', '" + UserRoles.USER.name() + "')")
+                .antMatchers("/admin/**").access("hasAuthority('" + UserRoles.ADMIN.name() + "')")
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/", false);
 
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * User repository mock class
  */
-public class UserRepositoryAdapterMock implements UserRepositoryAdapter{
+public class UserRepositoryAdapterMock implements UserRepositoryAdapter {
     @Override
     public List<User> getAllUser() {
         User user = Mockito.mock(User.class);

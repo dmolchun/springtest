@@ -11,6 +11,11 @@ public class MainController {
         return "views/html/index";
     }
 
+    @RequestMapping(value = "/login")
+    public String login() {
+        return "views/html/login";
+    }
+
     @RequestMapping(value = "/admin")
     public String admin() {
         return "views/html/admin";
