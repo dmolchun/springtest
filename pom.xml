@@ -11,7 +11,7 @@
     <modules>
         <module>application</module>
         <module>service</module>
-        <module>view</module>
+        <module>ui</module>
         <module>api</module>
         <module>db</module>
         <module>webmodule</module>
@@ -46,7 +46,7 @@
             </dependency>
             <dependency>
                 <groupId>ru.clean.process</groupId>
-                <artifactId>view</artifactId>
+                <artifactId>ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

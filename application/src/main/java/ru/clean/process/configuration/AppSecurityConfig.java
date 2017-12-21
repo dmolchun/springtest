@@ -45,8 +45,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         //todo: enable csfr
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").access("hasAnyAuthority('" + UserRoles.ADMIN.name() + "', '" + UserRoles.USER.name() + "')")
-                .antMatchers("/admin/**").access("hasAuthority('" + UserRoles.ADMIN.name() + "')")
+                .antMatchers("/", "/app/**", "/main", "/ui/**").access("hasAnyAuthority('" + UserRoles.ADMIN.name() + "', '" + UserRoles.USER.name() + "')")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()

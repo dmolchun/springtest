@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/app/user")
 public class UserController {
 
     private final UserService userService;

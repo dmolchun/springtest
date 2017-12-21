@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>ru.clean.process</groupId>
-            <artifactId>view</artifactId>
+            <artifactId>ui</artifactId>
         </dependency>
         <dependency>
             <groupId>ru.clean.process</groupId>
@@ -98,7 +98,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Плагин распаковывает ресурсы из модуля view в папку webmodule -->
+            <!-- Плагин распаковывает ресурсы из модуля ui в папку WEB-INF -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -113,12 +113,12 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>ru.clean.process</groupId>
-                                    <artifactId>view</artifactId>
+                                    <artifactId>ui</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <excludes>META-INF/**</excludes>
                                     <outputDirectory>
-                                        ${project.build.directory}/${final.name}/WEB-INF/views
+                                        ${project.build.directory}/${final.name}/WEB-INF/view/
                                     </outputDirectory>
                                 </artifactItem>
                             </artifactItems>
