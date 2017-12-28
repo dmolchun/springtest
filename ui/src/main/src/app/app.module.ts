@@ -1,14 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import {
+  MatTableModule,
+  MatTabsModule
+} from '@angular/material';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Routes, RouterModule } from '@angular/router';
 
 
+import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { MoviesComponent } from './movies/movies.component';
 import { UsersComponent } from './users/users.component';
+import { UsersGridComponent } from './users/users-grid/users-grid.component';
 import { UsersService } from "./users/users.service";
+
 
 const appRoutes:Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -18,20 +28,35 @@ const appRoutes:Routes = [
 ];
 
 @NgModule({
+  exports: [
+    MatTableModule,
+    MatTabsModule
+  ]
+})
+export class MaterialComponentsModule {
+}
+
+@NgModule({
   declarations: [
+    AboutComponent,
     AppComponent,
     LoginComponent,
     MainComponent,
-    UsersComponent
+    MoviesComponent,
+    UsersComponent,
+    UsersGridComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    MaterialComponentsModule,
+    NgbModule.forRoot(),
+    NoopAnimationsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    UsersService,
-    HttpClientModule
+    HttpClientModule,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })
