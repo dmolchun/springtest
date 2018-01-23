@@ -1,8 +1,9 @@
 package ru.clean.process.service.user;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.clean.process.api.dto.user.User;
@@ -38,6 +39,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getCurrentUser() throws UserServiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            UserDetails currentUserDetails = (UserDetails)authentication.getPrincipal();
+            return getUserByLogin(currentUserDetails.getUsername());
+        }
+        throw new UserServiceException("User is not authenticated");
+    }
+
+    @Override
     public User saveUser(User user) throws UserServiceException {
         if (user.getId() == null) {
             return createUser(user);
@@ -47,6 +58,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Returns user info by login
+     *
      * @throws UserServiceException if user was not found
      */
     @Override
@@ -60,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Update existed user
-     *
+     * <p>
      * UserServiceException if user DTO hasn't pass verification
      */
     private User updateUser(User user) throws UserServiceException {

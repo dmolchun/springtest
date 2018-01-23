@@ -30,6 +30,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping(value = "/info")
+    public User getCurrentUser() throws UserServiceException {
+        return new UserDTO(userService.getCurrentUser());
+    }
+
     @RequestMapping(value = "/users")
     public List<User> getAllUsers() {
         return userService.getAllUser();

@@ -15,6 +15,11 @@ public interface UserService {
     List<User> getAllUser();
 
     /**
+     * Get current user info from db
+     */
+    User getCurrentUser() throws UserServiceException;
+
+    /**
      * Save or update user to db
      */
     User saveUser(User user) throws UserServiceException;

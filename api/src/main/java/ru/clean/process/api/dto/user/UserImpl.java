@@ -77,4 +77,13 @@ public class UserImpl implements User{
         this.password = user.getPassword();
         this.userRoles = user.getRoles();
     }
+
+    @Override
+    public String toString() {
+        return "UserImpl{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
