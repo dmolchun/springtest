@@ -1,5 +1,16 @@
 <mat-table #table [dataSource]="dataSource">
 
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(user) : null"
+                    [checked]="selection.isSelected(user)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
     <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
@@ -21,5 +32,5 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(user)"></mat-row>
 </mat-table>

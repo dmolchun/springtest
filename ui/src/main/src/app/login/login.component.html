@@ -1,6 +1,18 @@
-<div class="container" style="width:500px">
-    <div align=center><h2 class="form-signin-heading">Please sign in</h2></div>
-    <input type='text' [(ngModel)]="name" class="form-control" placeholder="Username" autofocus>
-    <input type="password" [(ngModel)]="password" class="form-control" placeholder="Password">
-    <button class="btn btn-lg btn-primary btn-block" (click)="onLogin()">Sign in</button>
+<div class="login-form">
+  <div class="header-text"align=center>Please sign in</div>
+  <p>
+    <mat-form-field class="login-form-input">
+      <input matInput type='text' [(ngModel)]="name" placeholder="Username" autofocus>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="login-form-input">
+      <input matInput [(ngModel)]="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+
+  </p>
+  <div>
+    <button class="button-login" mat-raised-button (click)="onLogin()">Sign in</button>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-package ru.clean.process.configuration;
+package ru.clean.process.api.constants;
 
 /**
  * Constants for application config

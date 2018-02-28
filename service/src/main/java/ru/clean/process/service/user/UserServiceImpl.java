@@ -71,6 +71,20 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Returns user info by id
+     *
+     * @throws UserServiceException if user was not found
+     */
+    @Override
+    public User getUserById(Long id) throws UserServiceException {
+        User result = userRepository.getUserById(id);
+        if (result == null) {
+            throw new UserServiceException(String.format("User with id %d was not found", id));
+        }
+        return result;
+    }
+
+    /**
      * Update existed user
      * <p>
      * UserServiceException if user DTO hasn't pass verification

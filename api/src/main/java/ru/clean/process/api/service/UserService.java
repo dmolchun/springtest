@@ -28,4 +28,9 @@ public interface UserService {
      * Get user from db by user name
      */
     User getUserByLogin(String login) throws UserServiceException;
+
+    /**
+     * Get user from db by user id
+     */
+    User getUserById(Long id) throws UserServiceException;
 }

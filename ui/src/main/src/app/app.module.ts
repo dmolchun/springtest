@@ -1,9 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {MatTableModule, MatTabsModule} from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatSnackBarModule,
+  MatTableModule, MatTabsModule
+} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field'
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 
@@ -17,20 +20,31 @@ import {UsersComponent} from './users/users.component';
 import {UsersGridComponent} from './users/users-grid/users-grid.component';
 import {UsersService} from "./users/users.service";
 import {LoginService} from "./login/login.service";
+import {UserCardComponent} from './users/user-card/user-card.component';
+import {DtDirective} from "./users/dt.directive";
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'ui/users', component: UsersComponent},
+  {path: 'ui/users/user/:id', component: UserCardComponent},
   {path: 'main', component: MainComponent}
 ];
 
 @NgModule({
   exports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSnackBarModule,
     MatTableModule,
-    MatTabsModule
-  ]
+    MatTabsModule,
+    MatFormFieldModule
+  ],
+  declarations: []
 })
 export class MaterialComponentsModule {
 }
@@ -39,9 +53,11 @@ export class MaterialComponentsModule {
   declarations: [
     AboutComponent,
     AppComponent,
+    DtDirective,
     LoginComponent,
     MainComponent,
     MoviesComponent,
+    UserCardComponent,
     UsersComponent,
     UsersGridComponent
   ],
@@ -50,8 +66,8 @@ export class MaterialComponentsModule {
     FormsModule,
     HttpClientModule,
     MaterialComponentsModule,
-    NgbModule.forRoot(),
     NoopAnimationsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

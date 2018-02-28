@@ -24,7 +24,7 @@ public class UserVerifier {
     }
 
     /**
-     * Verify user DTO when create new one
+     * Verify user DTO when create a new one
      *
      * @param user user to create
      * @return list of verification errors
@@ -75,7 +75,7 @@ public class UserVerifier {
     }
 
     /**
-     * Chect if user already exists
+     * Check if user already exists
      *
      * @param login - user login
      * @return true if user already exists
@@ -86,7 +86,7 @@ public class UserVerifier {
     }
 
     /**
-     * Chect if user already exists
+     * Check if user already exists
      *
      * @param id - user id
      * @return true if user already exists

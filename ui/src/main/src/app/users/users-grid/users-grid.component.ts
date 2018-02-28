@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { DataSource } from '@angular/cdk/collections';
+import {DataSource, SelectionModel} from '@angular/cdk/collections';
 
 
 import { User } from "../user";
@@ -15,7 +15,9 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export class UsersGridComponent implements OnInit {
 
   dataSource: UserDataSource;
-  displayedColumns = ['id', 'name', 'secondName', 'roles'];
+  displayedColumns = ['select', 'id', 'name', 'secondName', 'roles'];
+
+  selection = new SelectionModel<User>(true, []);
 
   constructor(private usersService:UsersService) {
     this.dataSource = new UserDataSource(this.usersService);
@@ -24,6 +26,9 @@ export class UsersGridComponent implements OnInit {
   ngOnInit() {
   }
 
+  getSelected(): User[] {
+    return this.selection.selected;
+  }
 
 }
 

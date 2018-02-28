@@ -17,7 +17,7 @@ export class LoginService {
 
     const options = {responseType: 'text' as 'text'};
 
-    return this.httpClient.post<any>(
+    return this.httpClient.post(
       this.loginUrl,
       credentials,
       {responseType: 'text' as 'text'});

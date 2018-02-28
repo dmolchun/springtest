@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService} from "./login.service";
 import {UsersService} from "../users/users.service";
 import {Router} from "@angular/router";
-import {MainComponent} from "../main/main.component";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +9,8 @@ import {MainComponent} from "../main/main.component";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  hide = true;
 
   name: string;
   password: string;
