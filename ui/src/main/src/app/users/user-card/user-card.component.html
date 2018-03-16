@@ -1,0 +1,55 @@
+<div [hidden]="!_active" class="pane">
+  <div [hidden]="!_isEditMode">
+    <button mat-button (click)="save()">Save</button>
+  </div>
+  <div [hidden]="_isEditMode">
+    <button mat-button (click)="edit()">Edit</button>
+  </div>
+  <div [hidden]="!_user.id" align="center">
+    <h3>Карточка пользователя {{_user.name}} {{_user.secondName}}</h3>
+  </div>
+  <div [hidden]="_user.id" align="center">
+    <h3>Карточка нового пользователя</h3>
+  </div>
+  <div class="user-container">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field class="input">
+            <input matInput [formControl]="_userLoginControl" placeholder="User login" [readonly]="!_isEditMode"
+                   [(ngModel)]="_user.login" required>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="input">
+            <input matInput [formControl]="_userNameControl" placeholder="User name" [readonly]="!_isEditMode"
+                   [(ngModel)]="_user.name" required>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="input">
+            <input matInput placeholder="User second name" [readonly]="!_isEditMode" [(ngModel)]="_user.secondName">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="input">
+            <mat-select [disabled]="!_isEditMode" [formControl]="_userRolesControl" placeholder="User roles" [(ngModel)]="_user.roles" multiple
+                        required>
+              <mat-option *ngFor="let roles of _userRoles" [value]="roles">{{roles}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="input">
+            <input matInput placeholder="User password" [readonly]="!_isEditMode" [(ngModel)]="_user.password">
+          </mat-form-field>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>

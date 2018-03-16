@@ -10,4 +10,6 @@ import java.util.List;
 public interface UserRepositoryAdapter {
     List<User> getAllUser();
     User saveUser(User user);
+    User getUserByLogin(String login);
+    User getUserById(Long id);
 }

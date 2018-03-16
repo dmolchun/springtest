@@ -20,6 +20,7 @@ public class ConfigServiceImpl implements ConfigService {
 
         MainConfigImpl mainConfig = new MainConfigImpl();
         mainConfig.setDbConfig(dbConfig);
+        mainConfig.setNeedCreateAdminIfNotExists(true);
         return mainConfig;
     }
 }

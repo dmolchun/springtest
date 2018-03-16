@@ -1,11 +1,12 @@
 package ru.clean.process.api.dto.user;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Interface to get info about user
  */
-public interface User {
+public interface User extends Serializable{
     /**
      * Get Id
      */
@@ -34,5 +35,5 @@ public interface User {
     /**
      * Get User roles
      */
-//    List<UserRoles> getRoles();
+    List<UserRoles> getRoles();
 }

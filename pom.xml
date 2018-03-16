@@ -11,7 +11,7 @@
     <modules>
         <module>application</module>
         <module>service</module>
-        <module>view</module>
+        <module>ui</module>
         <module>api</module>
         <module>db</module>
         <module>webmodule</module>
@@ -46,7 +46,7 @@
             </dependency>
             <dependency>
                 <groupId>ru.clean.process</groupId>
-                <artifactId>view</artifactId>
+                <artifactId>ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -55,13 +55,32 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- junit -->
+            <!-- test -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.10.19</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.196</version>
+                <scope>test</scope>
+            </dependency>
+
 
             <!--Spring-->
             <dependency>

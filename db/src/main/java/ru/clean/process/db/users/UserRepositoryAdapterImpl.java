@@ -12,7 +12,7 @@ import java.util.List;
  * Adapter to work with user storage
  */
 @Service
-public class UserRepositoryAdapterImpl implements UserRepositoryAdapter{
+public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
 
     private UserRepository userRepository;
 
@@ -28,6 +28,17 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter{
 
     @Override
     public User saveUser(User user) {
-        return null;
+        UserEntity userEntity = new UserEntity(user);
+        return userRepository.save(userEntity);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

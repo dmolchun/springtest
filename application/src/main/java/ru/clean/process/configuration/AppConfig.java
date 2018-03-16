@@ -1,15 +1,18 @@
 package ru.clean.process.configuration;
 
 import org.springframework.context.annotation.*;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import ru.clean.process.api.constants.ConfigConstants;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.clean.process.webmodule.controllers", "ru.clean.process.service", "ru.clean.process.db"})
+@ComponentScan({ConfigConstants.PACKAGE_CONTROLLERS, ConfigConstants.PACKAGE_SERVICES, ConfigConstants.PACKAGE_DB})
 @Import({AppSecurityConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
@@ -22,7 +25,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/login").setViewName("forward:/index.html");
+        registry.addViewController("/main").setViewName("forward:/index.html");
+        registry.addViewController("/ui/**").setViewName("forward:/index.html");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/views/**").addResourceLocations("/WEB-INF/views/");
+        registry.addResourceHandler("/**").addResourceLocations("/WEB-INF/view/");
     }
 }

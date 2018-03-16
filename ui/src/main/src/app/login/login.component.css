@@ -1,0 +1,21 @@
+.login-form {
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 10%;
+}
+
+.login-form-input {
+  width: 100%;
+}
+
+.button-login {
+  position: relative;
+  margin: -50px;
+  width: 100px;
+  left: 50%;
+}
+
+.header-text {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: large;
+}
