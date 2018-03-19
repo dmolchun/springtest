@@ -74,7 +74,6 @@ export class UserCardComponent implements OnInit {
         duration: 2000,
       });
     }
-    this._isEditMode = false;
   }
 
   edit() {

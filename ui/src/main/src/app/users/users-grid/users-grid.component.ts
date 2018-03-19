@@ -30,6 +30,10 @@ export class UsersGridComponent implements OnInit {
     return this.selection.selected;
   }
 
+  refresh() {
+    this.dataSource = new UserDataSource(this.usersService);
+  }
+
 }
 
 export class UserDataSource extends DataSource<User> {
