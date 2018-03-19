@@ -42,10 +42,10 @@ export class UsersComponent implements OnInit {
    * Closing tab
    */
   closeTab(tab: UserCardComponent) {
-    for(let i=0; i<this.tabs.length;i++) {
-      if(this.tabs[i] === tab) {
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i] === tab) {
         // remove the tab from our array
-        this.tabs.splice(i,1);
+        this.tabs.splice(i, 1);
 
         // destroy our dynamically created component again
         let viewContainerRef = this.dtHost.viewContainerRef;
@@ -67,7 +67,10 @@ export class UsersComponent implements OnInit {
     for (let tab of this.tabs) {
       tab.active = false;
     }
-    this.tabs[event.index - 1].active = true;
+    let currentTab = this.tabs[event.index - 1];
+    if (currentTab) {
+      currentTab.active = true;
+    }
   }
 
   disableEditButton(): boolean {
@@ -77,6 +80,10 @@ export class UsersComponent implements OnInit {
   editUser() {
     let component = this.createNew();
     component.id = this.userGrid.getSelected()[0].id;
+  }
+
+  refreshGrid() {
+    this.userGrid.refresh();
   }
 
 
