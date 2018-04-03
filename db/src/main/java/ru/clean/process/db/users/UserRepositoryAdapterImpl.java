@@ -41,4 +41,9 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void changePassword(Long id, String password) {
+        userRepository.changePassword(id, password);
+    }
 }

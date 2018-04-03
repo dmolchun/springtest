@@ -36,4 +36,9 @@ public class UserRepositoryAdapterMock implements UserRepositoryAdapter {
     public User getUserById(Long id) {
         return null;
     }
+
+    @Override
+    public void changePassword(Long id, String password) {
+
+    }
 }

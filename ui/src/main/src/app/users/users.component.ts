@@ -2,6 +2,9 @@ import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/c
 import {UserCardComponent} from "./user-card/user-card.component";
 import {DtDirective} from "./dt.directive";
 import {UsersGridComponent} from "./users-grid/users-grid.component";
+import {UsersService} from "./users.service";
+import {MatDialog, MatSnackBar} from "@angular/material";
+import {UserPasswordChangeComponent} from "./user-password-change/user-password-change.component";
 
 @Component({
   selector: 'app-users',
@@ -18,7 +21,10 @@ export class UsersComponent implements OnInit {
   @ViewChild(DtDirective) dtHost: DtDirective;
   @ViewChild(UsersGridComponent) userGrid: UsersGridComponent;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private usersService: UsersService,
+              private dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -74,12 +80,41 @@ export class UsersComponent implements OnInit {
   }
 
   disableEditButton(): boolean {
-    return this.userGrid.getSelected().length != 1;
+    let currentUser = this.usersService.getCurrentUser();
+    return this.userGrid.getSelected().length != 1 && currentUser && currentUser.roles.indexOf('ADMIN') > -1;
   }
 
   editUser() {
     let component = this.createNew();
     component.id = this.userGrid.getSelected()[0].id;
+  }
+
+  changePassword() {
+    let dialogRef = this.dialog.open(UserPasswordChangeComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          let user = this.userGrid.getSelected()[0];
+          user.password = result;
+          this.usersService.changePassword(user).subscribe(
+            result => {
+              this._snackBar.open("Password successfully changed", "", {
+                duration: 2000,
+              })
+            },
+            err => {
+              console.log(err);
+              this._snackBar.open("Error while changing password", "", {
+                duration: 2000,
+              });
+            }
+          );
+        }
+      }
+    )
+    ;
   }
 
   refreshGrid() {

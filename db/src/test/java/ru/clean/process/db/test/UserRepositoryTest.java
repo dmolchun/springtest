@@ -36,4 +36,19 @@ public class UserRepositoryTest {
 
         Assert.assertEquals(foundUser.getSecondName(), testUser.getSecondName());
     }
+
+    @Test
+    public void testChangePassword() {
+        UserImpl testUser = new UserImpl();
+        testUser.setLogin("user2");
+        testUser.setName("user2name");
+        testUser.setSecondName("user2secondName");
+        testUser.setPassword("user2pass");
+
+        User savedUser = userRepository.save(new UserEntity(testUser));
+        userRepository.changePassword(savedUser.getId(), "newPass");
+
+        savedUser = userRepository.findByLogin(savedUser.getLogin());
+        Assert.assertEquals("newPass", savedUser.getPassword());
+    }
 }
