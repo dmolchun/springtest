@@ -24,6 +24,12 @@ public interface UserService {
      */
     User saveUser(User user) throws UserServiceException;
 
+
+    /**
+     * Delete user
+     */
+    void deleteUser(Long id) throws UserServiceException;
+
     /**
      * Get user from db by user name
      */

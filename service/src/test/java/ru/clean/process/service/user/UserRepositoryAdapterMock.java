@@ -28,6 +28,11 @@ public class UserRepositoryAdapterMock implements UserRepositoryAdapter {
     }
 
     @Override
+    public void deleteUser(Long id) {
+
+    }
+
+    @Override
     public User getUserByLogin(String login) {
         return null;
     }
