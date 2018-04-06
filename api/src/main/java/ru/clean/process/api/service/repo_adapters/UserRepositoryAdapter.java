@@ -12,4 +12,5 @@ public interface UserRepositoryAdapter {
     User saveUser(User user);
     User getUserByLogin(String login);
     User getUserById(Long id);
+    void changePassword(Long id, String password);
 }

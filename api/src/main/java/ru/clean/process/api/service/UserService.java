@@ -33,4 +33,9 @@ public interface UserService {
      * Get user from db by user id
      */
     User getUserById(Long id) throws UserServiceException;
+
+    /**
+     * Changes user's password
+     */
+    void changePassword(Long id, String password) throws UserServiceException;
 }

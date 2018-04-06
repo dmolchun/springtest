@@ -58,6 +58,7 @@ export class UserCardComponent implements OnInit {
     if (this._userControls.valid) {
       this._usersService.saveUser(this._user).subscribe(
         res => {
+          this._user = res;
           this._snackBar.open("Successfully saved", "", {
             duration: 2000,
           });
@@ -78,6 +79,10 @@ export class UserCardComponent implements OnInit {
 
   edit() {
     this._isEditMode = true;
+  }
+
+  isNew() {
+    return !this._user || !this._user.id;
   }
 
   set active(value: boolean) {

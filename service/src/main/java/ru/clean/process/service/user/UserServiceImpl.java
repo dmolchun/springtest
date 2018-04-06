@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.clean.process.api.dto.user.User;
 import ru.clean.process.api.dto.user.UserImpl;
+import ru.clean.process.api.dto.user.UserRoles;
 import ru.clean.process.api.exceptions.UserServiceException;
 import ru.clean.process.api.service.UserService;
 import ru.clean.process.api.service.repo_adapters.UserRepositoryAdapter;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() throws UserServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetails currentUserDetails = (UserDetails)authentication.getPrincipal();
+            UserDetails currentUserDetails = (UserDetails) authentication.getPrincipal();
             return getUserByLogin(currentUserDetails.getUsername());
         }
         throw new UserServiceException("User is not authenticated");
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) throws UserServiceException {
+        checkAdmin("save user");
         if (user.getId() == null) {
             return createUser(user);
         }
@@ -85,11 +87,27 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Changes user's password
+     *
+     * @throws UserServiceException if user was not found
+     */
+    @Override
+    public void changePassword(Long id, String password) throws UserServiceException {
+        if (id == null) {
+            throw new UserServiceException("User id is not set");
+        }
+        checkAdmin("change password");
+
+        userRepository.changePassword(id, passwordEncoder.encode(password));
+    }
+
+    /**
      * Update existed user
      * <p>
      * UserServiceException if user DTO hasn't pass verification
      */
     private User updateUser(User user) throws UserServiceException {
+        checkAdmin("update user");
         List<VerificationResult> verificationResult = userVerifier.verifyUserOnUpdate(user);
         if (verificationResult.isEmpty()) {
             return saveToRepo(user);
@@ -122,7 +140,16 @@ public class UserServiceImpl implements UserService {
             throw new UserServiceException("User to save in repo empty");
         }
         UserImpl newUser = new UserImpl(user);
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getId() == null) {
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.saveUser(newUser);
+    }
+
+    private void checkAdmin(String action) throws UserServiceException {
+        User currentUser = getCurrentUser();
+        if (!currentUser.getRoles().contains(UserRoles.ADMIN)) {
+            throw new UserServiceException("Current user id = {} is not authorised to {}", currentUser.getId(), action);
+        }
     }
 }

@@ -11,9 +11,24 @@ export class UsersService {
   private rolesUrl = 'app/user/roles';
   private currentUserUrl = 'app/user/info';
   private saveUserUrl = 'app/user/save';
+  private changePasswordUrl = 'app/user/password';
+
+  private currentUser: User;
 
   constructor(private http: HttpClient) {
+    if (!this.currentUser) {
+      this.http.get<User>(this.currentUserUrl).subscribe(
+        user => {
+          this.currentUser = user;
+        },
+        error => {
+          console.log(error);
+          throw error;
+        }
+      );
+    }
   }
+
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl);
@@ -23,15 +38,19 @@ export class UsersService {
     return this.http.get<string[]>(this.rolesUrl);
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.http.get<User>(this.currentUserUrl);
+  getCurrentUser(): User {
+    return this.currentUser;
   }
 
   getUser(id: number): Observable<User> {
     return this.http.get<User>(this.usersByIdUrl + id);
   }
 
-  saveUser(user: User): Observable<Object> {
-    return this.http.post(this.saveUserUrl, user)
+  saveUser(user: User): Observable<User> {
+    return this.http.post<User>(this.saveUserUrl, user)
+  }
+
+  changePassword(user: User): Observable<User> {
+    return this.http.post<User>(this.changePasswordUrl, user)
   }
 }

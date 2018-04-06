@@ -33,7 +33,8 @@
         </td>
         <td>
           <mat-form-field class="input">
-            <mat-select [disabled]="!_isEditMode" [formControl]="_userRolesControl" placeholder="User roles" [(ngModel)]="_user.roles" multiple
+            <mat-select [disabled]="!_isEditMode" [formControl]="_userRolesControl" placeholder="User roles"
+                        [(ngModel)]="_user.roles" multiple
                         required>
               <mat-option *ngFor="let roles of _userRoles" [value]="roles">{{roles}}</mat-option>
             </mat-select>
@@ -42,9 +43,11 @@
       </tr>
       <tr>
         <td>
-          <mat-form-field class="input">
-            <input matInput placeholder="User password" [readonly]="!_isEditMode" [(ngModel)]="_user.password">
-          </mat-form-field>
+          <div [hidden]="!isNew()">
+            <mat-form-field class="input">
+              <input matInput placeholder="User password" [(ngModel)]="_user.password">
+            </mat-form-field>
+          </div>
         </td>
         <td></td>
         <td></td>

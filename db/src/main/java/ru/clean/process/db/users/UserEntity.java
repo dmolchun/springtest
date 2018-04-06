@@ -31,7 +31,7 @@ public class UserEntity implements User {
     @Column(name = "user_login")
     private String login;
 
-    @Column(name = "user_password")
+    @Column(name = "user_password", updatable = false)
     private String password;
 
     @Column(name = "user_roles")

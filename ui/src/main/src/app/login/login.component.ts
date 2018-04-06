@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "./login.service";
-import {UsersService} from "../users/users.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit {
   name: string;
   password: string;
 
-  constructor(private loginService: LoginService, private userService: UsersService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-
     this.loginService.login(this.name, this.password).subscribe(
       next => {
         this.redirectToMainIfIsAuth();
@@ -34,9 +32,9 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToMainIfIsAuth() {
-    this.userService.getCurrentUser().subscribe(
-      user => this.router.navigate(['/main']),
-      error => console.log(error)
-    )
+    this.loginService.getCurrentUser().subscribe(
+      result => this.router.navigate(['/main']),
+      err => {}
+    );
   }
 }

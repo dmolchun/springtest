@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {
-  MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatSnackBarModule,
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatSelectModule, MatSnackBarModule,
   MatTableModule, MatTabsModule
 } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field'
@@ -22,6 +22,7 @@ import {UsersService} from "./users/users.service";
 import {LoginService} from "./login/login.service";
 import {UserCardComponent} from './users/user-card/user-card.component';
 import {DtDirective} from "./users/dt.directive";
+import { UserPasswordChangeComponent } from './users/user-password-change/user-password-change.component';
 
 
 const appRoutes: Routes = [
@@ -31,25 +32,23 @@ const appRoutes: Routes = [
   {path: 'ui/users/user/:id', component: UserCardComponent},
   {path: 'main', component: MainComponent}
 ];
+const modules = [
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatTabsModule,
+  MatFormFieldModule
+];
 
 @NgModule({
   exports: [
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
-    MatFormFieldModule
+    modules
   ],
-  declarations: []
-})
-export class MaterialComponentsModule {
-}
-
-@NgModule({
   declarations: [
     AboutComponent,
     AppComponent,
@@ -59,13 +58,14 @@ export class MaterialComponentsModule {
     MoviesComponent,
     UserCardComponent,
     UsersComponent,
-    UsersGridComponent
+    UsersGridComponent,
+    UserPasswordChangeComponent
   ],
   imports: [
+    modules,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MaterialComponentsModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
@@ -75,6 +75,7 @@ export class MaterialComponentsModule {
     LoginService,
     UsersService
   ],
+  entryComponents: [UserPasswordChangeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
