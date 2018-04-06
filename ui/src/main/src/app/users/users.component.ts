@@ -89,6 +89,24 @@ export class UsersComponent implements OnInit {
     component.id = this.userGrid.getSelected()[0].id;
   }
 
+  deleteUser() {
+    this.usersService.deleteUser(this.userGrid.getSelected()[0].id).subscribe(
+      next => {
+        this.refreshGrid();
+        this._snackBar.open("User successfully deleted", "", {
+          duration: 2000,
+        })
+      },
+      err => {
+        console.log(err);
+        this._snackBar.open("Error while deleting user", "", {
+          duration: 2000,
+        });
+      }
+    );
+
+  }
+
   changePassword() {
     let dialogRef = this.dialog.open(UserPasswordChangeComponent, {
       width: '250px'

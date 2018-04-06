@@ -33,6 +33,11 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     }
 
     @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
     public User getUserByLogin(String login) {
         return userRepository.findByLogin(login);
     }

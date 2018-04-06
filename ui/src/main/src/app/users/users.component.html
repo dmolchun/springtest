@@ -2,6 +2,7 @@
   <mat-tab label="Users grid">
     <button class="button-create" mat-button (click)="createNew()">Create user</button>
     <button class="button-edit" mat-button (click)="editUser()" [disabled]="disableEditButton()">Edit user</button>
+    <button class="delete" mat-button (click)="deleteUser()" [disabled]="disableEditButton()">Delete user</button>
     <button class="button-password" mat-button (click)="changePassword()" [disabled]="disableEditButton()">Change Password</button>
     <button class="button-refresh" mat-button (click)="refreshGrid()">Refresh</button>
     <app-users-grid></app-users-grid>

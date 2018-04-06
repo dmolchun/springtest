@@ -9,8 +9,14 @@ import java.util.List;
  */
 public interface UserRepositoryAdapter {
     List<User> getAllUser();
+
     User saveUser(User user);
+
+    void deleteUser(Long id);
+
     User getUserByLogin(String login);
+
     User getUserById(Long id);
+
     void changePassword(Long id, String password);
 }

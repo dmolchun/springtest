@@ -11,6 +11,7 @@ export class UsersService {
   private rolesUrl = 'app/user/roles';
   private currentUserUrl = 'app/user/info';
   private saveUserUrl = 'app/user/save';
+  private deleteUserUrl = 'app/user/delete/';
   private changePasswordUrl = 'app/user/password';
 
   private currentUser: User;
@@ -47,10 +48,14 @@ export class UsersService {
   }
 
   saveUser(user: User): Observable<User> {
-    return this.http.post<User>(this.saveUserUrl, user)
+    return this.http.post<User>(this.saveUserUrl, user);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.get<any>(this.deleteUserUrl + id);
   }
 
   changePassword(user: User): Observable<User> {
-    return this.http.post<User>(this.changePasswordUrl, user)
+    return this.http.post<User>(this.changePasswordUrl, user);
   }
 }
