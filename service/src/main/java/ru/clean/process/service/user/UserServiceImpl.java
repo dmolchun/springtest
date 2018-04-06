@@ -58,6 +58,13 @@ public class UserServiceImpl implements UserService {
         return updateUser(user);
     }
 
+    @Override
+    public void deleteUser(Long id) throws UserServiceException {
+        checkAdmin("delete user");
+        getUserById(id);
+        userRepository.deleteUser(id);
+    }
+
     /**
      * Returns user info by login
      *

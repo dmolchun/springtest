@@ -58,6 +58,16 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+        try {
+            userService.deleteUser(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (UserServiceException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     public ResponseEntity<Serializable> changePassword(@RequestBody UserDTO user) {
         try {
